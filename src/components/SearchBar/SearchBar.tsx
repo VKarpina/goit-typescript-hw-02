@@ -1,16 +1,12 @@
-import { useState } from "react";
+import { FC, useState, FormEvent, ChangeEvent } from "react";
+import { SearchBarProps } from "../../services/interfaces";
 import s from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
-// import toast from "react-hot-toast";
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar: FC<SearchBarProps> = ({ onSubmit }) => {
   const [value, setValue] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (value.trim() === "") {
-    //   toast.error("Please enter a search term!");
-    //   return;
-    // }
     onSubmit(value);
     setValue("");
   };
@@ -22,7 +18,7 @@ const SearchBar = ({ onSubmit }) => {
         </button>
         <input
           className={s.searchInput}
-          onChange={(e) => {
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setValue(e.target.value);
           }}
           value={value}

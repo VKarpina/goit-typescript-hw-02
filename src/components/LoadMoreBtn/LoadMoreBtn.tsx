@@ -1,6 +1,8 @@
+import { FC } from "react";
+import { LoadMoreBtnProps } from "../../services/interfaces";
 import s from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({ setPage }) => {
+const LoadMoreBtn: FC<LoadMoreBtnProps> = ({ setPage }) => {
   return (
     <div className={s.loadBtnContainer}>
       <button

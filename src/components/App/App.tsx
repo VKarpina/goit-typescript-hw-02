@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import { fetchImages } from "./services/api";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import SearchBar from "../SearchBar/SearchBar";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import { fetchImages } from "../../services/api";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
-import ImageModal from "./components/ImageModal/ImageModal";
+import ImageModal from "../ImageModal/ImageModal";
+import { Image } from "../../services/interfaces";
+// import {
+//   Image,
+//   SearchBarProps,
+//   LoadMoreBtnProps,
+//   ImageModalProps,
+//   ImageGalleryProps,
+// } from "../../services/interfaces";
 
 const App = () => {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Image[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const [loadMore, setLoadMore] = useState(true);
   const per_page = 9;
 
@@ -26,7 +34,7 @@ const App = () => {
       try {
         setIsLoading(true);
         setIsError(false);
-        const data = await fetchImages(query, page, per_page);
+        const data: Image[] = await fetchImages(query, page, per_page);
         setImages((prev) => [...prev, ...data]);
         if (data.length === 0) {
           toast.error("No image available! Try another query!");
@@ -47,7 +55,7 @@ const App = () => {
     getImages();
   }, [query, page, per_page]);
 
-  const onSubmit = (newQuery) => {
+  const onSubmit = (newQuery: string) => {
     if (newQuery.trim() === "") {
       toast.error("Please enter a search term!");
       return;
@@ -58,7 +66,7 @@ const App = () => {
     setLoadMore(true);
   };
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: Image) => {
     setSelectedImage(image);
     setIsOpen(true);
   };

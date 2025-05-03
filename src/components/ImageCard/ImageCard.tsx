@@ -1,6 +1,8 @@
 import s from "./ImageCard.module.css";
+import { FC } from "react";
+import { ImageCardProps } from "../../services/interfaces";
 
-const ImageCard = ({ item, onImageClick }) => {
+const ImageCard: FC<ImageCardProps> = ({ item, onImageClick }) => {
   const {
     urls: { small },
     alt_description,
@@ -11,7 +13,7 @@ const ImageCard = ({ item, onImageClick }) => {
         <img
           className={s.image}
           src={small}
-          alt={alt_description}
+          alt={alt_description || "Image"}
           onClick={() => onImageClick(item)}
         />
       </div>

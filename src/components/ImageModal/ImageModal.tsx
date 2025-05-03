@@ -1,7 +1,9 @@
 import ReactModal from "react-modal";
+import { ImageModalProps } from "../../services/interfaces";
+import { FC } from "react";
 import s from "./ImageModal.module.css";
 
-const ImageModal = ({ isOpen, onClose, image }) => {
+const ImageModal: FC<ImageModalProps> = ({ isOpen, onClose, image }) => {
   if (!image) return null;
   const {
     urls: { regular },
@@ -21,8 +23,12 @@ const ImageModal = ({ isOpen, onClose, image }) => {
         ✕
       </button>
       <div className={s.modalContent}>
-        <img src={regular} alt={alt_description} className={s.modalImg} />
-        <p>{alt_description}</p>
+        <img
+          src={regular}
+          alt={alt_description || "Image"}
+          className={s.modalImg}
+        />
+        <p>{alt_description || "No description available"}</p>
         <p>❤️ Likes: {likes}</p>
         <p>📸 Author: {name}</p>
       </div>
